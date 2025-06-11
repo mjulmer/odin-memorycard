@@ -7,5 +7,12 @@ function EndScreen({
   currentScore: number;
   highScore: number;
 }) {
-  return <></>;
+  return (
+    <>
+      <p>Game over!</p>
+      <p>
+        You scored {currentScore}. Your high score is {highScore}.
+      </p>
+    </>
+  );
 }
