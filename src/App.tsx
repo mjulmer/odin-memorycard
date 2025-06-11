@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./styles/App.css";
-
-type GameState = "startScreen" | "inProgress" | "gameEnded";
+import type { GameState } from "./gameState";
+import { StartScreen } from "./components/StartScreen";
+import { GameScreen } from "./components/GameScreen";
+import { EndScreen } from "./components/EndScreen";
 
 function App() {
   const [gameState, setGameState] = useState<GameState>("startScreen");
@@ -14,43 +16,6 @@ function App() {
     return <GameScreen currentScore={currentScore} highScore={highScore} />;
   } else {
     return <EndScreen currentScore={currentScore} highScore={highScore} />;
-  }
-
-  function StartScreen({
-    setGameState,
-  }: {
-    setGameState: (gameState: GameState) => void;
-  }) {
-    return (
-      <>
-        <button onClick={() => setGameState("inProgress")}>Start game</button>
-      </>
-    );
-  }
-
-  function GameScreen({
-    currentScore,
-    highScore,
-  }: {
-    currentScore: number;
-    highScore: number;
-  }) {
-    return (
-      <>
-        <p>Current score: {currentScore}</p>
-        <p>High score: {highScore}</p>
-      </>
-    );
-  }
-
-  function EndScreen({
-    currentScore,
-    highScore,
-  }: {
-    currentScore: number;
-    highScore: number;
-  }) {
-    return <></>;
   }
 }
 
