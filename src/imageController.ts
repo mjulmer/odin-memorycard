@@ -39,8 +39,14 @@ class ImageController {
       if (images[i]) {
         continue;
       }
-      images[i] =
-        this.allImages[this.getRandomIntegerInRange(this.allImages.length)];
+      let potentialIndex = this.getRandomIntegerInRange(this.allImages.length);
+      while (images.includes(this.allImages[potentialIndex])) {
+        if (potentialIndex + 1 < this.allImages.length) {
+          potentialIndex += 1;
+        }
+        potentialIndex = 0;
+      }
+      images[i] = this.allImages[potentialIndex];
     }
     return images;
   }
