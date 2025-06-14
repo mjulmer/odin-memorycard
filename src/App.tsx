@@ -41,7 +41,7 @@ function App() {
       setGameState("gameEnded");
     } else {
       setCurrentScore(currentScore + 1);
-      setHighScore(Math.max(highScore, currentScore));
+      setHighScore(Math.max(highScore, currentScore + 1));
       imageController.markImageAsSeenAndQueryNewImages(imageId);
       setImages(imageController.getImages());
     }
