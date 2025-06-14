@@ -12,6 +12,7 @@ function App() {
   const [gameState, setGameState] = useState<GameState>("startScreen");
   const [fetchedInitialData, setFetchedInitialData] = useState(false);
   const imageController = useState<ImageController>(new ImageController())[0];
+  const [images, setImages] = useState<Array<Array<string>>>([]);
   const [highScore, setHighScore] = useState(0);
   const [currentScore, setCurrentScore] = useState(0);
 
@@ -22,14 +23,41 @@ function App() {
     }
   }, [imageController]);
 
+  function startGameOnClick() {
+    setImages(imageController.getImages());
+    setGameState("inProgress");
+  }
+
+  function imageOnClick(event: React.MouseEvent<HTMLImageElement, MouseEvent>) {
+    const imageId = (event.target as HTMLImageElement).getAttribute("data-id");
+    console.log(imageId);
+    if (imageId === null) {
+      console.error("Got null image ID when user clicked image.");
+      return;
+    }
+
+    if (imageController.isImageSeen(imageId)) {
+      // TODO: reset current score on new game press.
+      setGameState("gameEnded");
+    } else {
+      setCurrentScore(currentScore + 1);
+      setHighScore(Math.max(highScore, currentScore));
+      imageController.markImageAsSeenAndQueryNewImages(imageId);
+      setImages(imageController.getImages());
+    }
+  }
+
   if (gameState === "startScreen" || fetchedInitialData === false) {
-    return <StartScreen gameState={gameState} setGameState={setGameState} />;
+    return (
+      <StartScreen gameState={gameState} startGameOnClick={startGameOnClick} />
+    );
   } else if (gameState === "inProgress") {
     return (
       <GameScreen
         currentScore={currentScore}
         highScore={highScore}
-        images={imageController.getImages()}
+        images={images}
+        imageOnClick={imageOnClick}
       />
     );
   } else {

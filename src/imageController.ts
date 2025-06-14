@@ -60,6 +60,10 @@ class ImageController {
     return images;
   }
 
+  isImageSeen(imageId: string) {
+    return this.seenImageIds.has(imageId);
+  }
+
   markImageAsSeenAndQueryNewImages(imageId: string) {
     this.seenImageIds.add(imageId);
     this.unseenImageIds.filter((id) => id !== imageId);

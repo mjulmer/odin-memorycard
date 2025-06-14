@@ -4,10 +4,10 @@ export { StartScreen };
 
 function StartScreen({
   gameState,
-  setGameState,
+  startGameOnClick,
 }: {
   gameState: GameState;
-  setGameState: (gameState: GameState) => void;
+  startGameOnClick: () => void;
 }) {
   return (
     <>
@@ -17,7 +17,7 @@ function StartScreen({
       </p>
       <>
         {gameState === "startScreen" ? (
-          <button onClick={() => setGameState("inProgress")}>Start game</button>
+          <button onClick={startGameOnClick}>Start game</button>
         ) : (
           <p>Loading</p>
         )}
