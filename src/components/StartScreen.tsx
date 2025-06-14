@@ -3,8 +3,10 @@ import type { GameState } from "../gameState";
 export { StartScreen };
 
 function StartScreen({
+  gameState,
   setGameState,
 }: {
+  gameState: GameState;
   setGameState: (gameState: GameState) => void;
 }) {
   return (
@@ -13,7 +15,13 @@ function StartScreen({
         Welcome to Memory Card. Each round, choose a card you haven't chosen in
         a previous round. The game ends when you pick a duplicate card.
       </p>
-      <button onClick={() => setGameState("inProgress")}>Start game</button>
+      <>
+        {gameState === "startScreen" ? (
+          <button onClick={() => setGameState("inProgress")}>Start game</button>
+        ) : (
+          <p>Loading</p>
+        )}
+      </>
     </>
   );
 }
