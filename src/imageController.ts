@@ -39,14 +39,23 @@ class ImageController {
       if (images[i]) {
         continue;
       }
-      let potentialIndex = this.getRandomIntegerInRange(this.allImages.length);
-      while (images.includes(this.allImages[potentialIndex])) {
-        if (potentialIndex + 1 < this.allImages.length) {
-          potentialIndex += 1;
+      const totalImages = this.allImages.length;
+      const randomIndex = this.getRandomIntegerInRange(totalImages);
+      let uniquenessOffset = 0;
+      while (
+        images.includes(
+          this.allImages[(randomIndex + uniquenessOffset) % totalImages]
+        )
+      ) {
+        uniquenessOffset += 1;
+        if (uniquenessOffset > totalImages) {
+          console.error(
+            "Could not find a unique image to show. Showing duplicate."
+          );
+          break;
         }
-        potentialIndex = 0;
       }
-      images[i] = this.allImages[potentialIndex];
+      images[i] = this.allImages[randomIndex + uniquenessOffset];
     }
     return images;
   }
