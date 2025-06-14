@@ -53,28 +53,43 @@ function App() {
     setGameState("inProgress");
   }
 
-  if (gameState === "startScreen" || fetchedInitialData === false) {
-    return (
-      <StartScreen gameState={gameState} startGameOnClick={startGameOnClick} />
-    );
-  } else if (gameState === "inProgress") {
-    return (
-      <GameScreen
-        currentScore={currentScore}
-        highScore={highScore}
-        images={images}
-        imageOnClick={imageOnClick}
-      />
-    );
-  } else {
-    return (
-      <EndScreen
-        currentScore={currentScore}
-        highScore={highScore}
-        newGameOnClick={restartGameOnClick}
-      />
-    );
+  function getCoreGameScreen() {
+    if (gameState === "startScreen" || fetchedInitialData === false) {
+      return (
+        <StartScreen
+          gameState={gameState}
+          startGameOnClick={startGameOnClick}
+        />
+      );
+    } else if (gameState === "inProgress") {
+      return (
+        <GameScreen
+          currentScore={currentScore}
+          highScore={highScore}
+          images={images}
+          imageOnClick={imageOnClick}
+        />
+      );
+    } else {
+      return (
+        <EndScreen
+          currentScore={currentScore}
+          highScore={highScore}
+          newGameOnClick={restartGameOnClick}
+        />
+      );
+    }
   }
+
+  return (
+    <div className="gameFrame">
+      <div className="gameContent">{getCoreGameScreen()}</div>
+      <p className="attribution">
+        Images provided by{" "}
+        <a href="https://hearthstonejson.com/">HearthstoneJSON</a>
+      </p>
+    </div>
+  );
 }
 
 export default App;

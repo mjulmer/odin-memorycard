@@ -1,9 +1,16 @@
 .cardContainer {
-  display: flex;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 img {
   border: grey 2px solid;
   border-radius: 5px;
+}
+
+p {
+  margin: 0.25rem;
 }

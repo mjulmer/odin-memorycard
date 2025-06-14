@@ -1,0 +1,17 @@
+.gameFrame {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+}
+
+.gameContent {
+  width: 40rem;
+  height: fit-content;
+}
+
+.attribution {
+  margin-top: auto;
+}
