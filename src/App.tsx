@@ -37,7 +37,6 @@ function App() {
     }
 
     if (imageController.isImageSeen(imageId)) {
-      // TODO: reset current score on new game press.
       setGameState("gameEnded");
     } else {
       setCurrentScore(currentScore + 1);
@@ -45,6 +44,13 @@ function App() {
       imageController.markImageAsSeenAndQueryNewImages(imageId);
       setImages(imageController.getImages());
     }
+  }
+
+  function restartGameOnClick() {
+    setCurrentScore(0);
+    imageController.resetImages();
+    setImages(imageController.getImages());
+    setGameState("inProgress");
   }
 
   if (gameState === "startScreen" || fetchedInitialData === false) {
@@ -61,7 +67,13 @@ function App() {
       />
     );
   } else {
-    return <EndScreen currentScore={currentScore} highScore={highScore} />;
+    return (
+      <EndScreen
+        currentScore={currentScore}
+        highScore={highScore}
+        newGameOnClick={restartGameOnClick}
+      />
+    );
   }
 }
 

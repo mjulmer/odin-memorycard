@@ -68,7 +68,7 @@ class RemoteApiController {
             break;
           }
         }
-        // TODO: then shuffle cards.
+        this.shuffleAllImages();
         setFetchedInitialData(true);
       })
       .catch((err) => {
@@ -84,5 +84,17 @@ class RemoteApiController {
     const priorOffset = this.cardOffset;
     this.cardOffset = this.allCards.length;
     return this.allCards.slice(priorOffset, this.allCards.length - 1);
+  }
+
+  // Implementation of the Durstenfeld shuffle pseudocode from
+  // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
+  shuffleAllImages() {
+    for (let i = 0; i < this.allCards.length - 2; i++) {
+      const j = Math.floor(Math.random() * (this.allCards.length - i)) + i;
+      [this.allCards[i], this.allCards[j]] = [
+        this.allCards[j],
+        this.allCards[i],
+      ];
+    }
   }
 }

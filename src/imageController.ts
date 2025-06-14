@@ -60,6 +60,16 @@ class ImageController {
     return images;
   }
 
+  resetImages() {
+    this.remoteApiController.shuffleAllImages();
+    this.seenImageIds = new Set();
+    this.unseenImageIds = [];
+    // This will get called if needed when the game component
+    // rerenders and requests new images; but I prefer any
+    // latency to be on the "new game" click.
+    this.queryNewImages();
+  }
+
   isImageSeen(imageId: string) {
     return this.seenImageIds.has(imageId);
   }
